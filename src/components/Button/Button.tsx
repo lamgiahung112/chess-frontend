@@ -1,7 +1,7 @@
-import { PropsWithChildren, FC } from "react"
+import { ButtonHTMLAttributes, MouseEventHandler } from "react"
 import "./Button.scss"
 
-interface Props extends PropsWithChildren {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	primary?: boolean
 	secondary?: boolean
 	size?: String
@@ -9,13 +9,17 @@ interface Props extends PropsWithChildren {
 	className?: string
 }
 
-const Button: FC<Props> = (props) => {
+const Button = (props: Props) => {
 	const componentClasses = `${props.className} button ${
 		props.secondary ? "btn-secondary" : "btn-primary"
 	} btn-sz-${props.size || "small"}`
 
 	return (
-		<button disabled={props.disabled} className={componentClasses}>
+		<button
+			disabled={props.disabled}
+			className={componentClasses}
+			onClick={props.onClick}
+		>
 			{props.children}
 		</button>
 	)

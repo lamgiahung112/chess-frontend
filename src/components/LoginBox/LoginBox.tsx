@@ -5,8 +5,10 @@ import { faLock, faUser } from "@fortawesome/free-solid-svg-icons"
 import "./LoginBox.scss"
 import Button from "../Button"
 import { FormEvent, useState } from "react"
+import { useLogin } from "~/utils/hooks"
 
 function LoginBox() {
+	const { mutate: login } = useLogin()
 	const [input, setInput] = useState({
 		username: "",
 		password: "",
@@ -17,6 +19,10 @@ function LoginBox() {
 			...input,
 			[e.currentTarget.name]: e.currentTarget.value,
 		})
+	}
+
+	const onLoginButtonClick = () => {
+		login(input)
 	}
 
 	return (
@@ -71,7 +77,12 @@ function LoginBox() {
 						<Link to="/">Forgot password?</Link>
 					</div>
 				</div>
-				<Button primary size="large" className="login-button">
+				<Button
+					primary
+					size="large"
+					className="login-button"
+					onClick={onLoginButtonClick}
+				>
 					Log in
 				</Button>
 			</div>

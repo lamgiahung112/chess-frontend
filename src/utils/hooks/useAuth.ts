@@ -1,34 +1,51 @@
 import decode_jwt from "jwt-decode"
+import { HttpRequest } from "~/utils/axios-utils"
+import { useMutation, useQueryClient } from "react-query"
+import { AxiosError, AxiosResponse } from "axios"
+import { IHttpResponse, IApiError } from "~/utils/interfaces"
 
-interface TokenData {
+/******** Interfaces ********/
+
+interface ITokenData {
 	username: string
 	iat: number
 	exp: number
 }
 
-interface AuthData {
-	payload: TokenData | null
-	isError: boolean
+interface ILoginData {
+	username: string
+	password: string
 }
 
-const useAuth = (): AuthData => {
-	const token = localStorage.getItem("token")!
-	const data: AuthData = {
-		payload: null,
-		isError: false,
-	}
+/******** Util functions ********/
+
+const login = (data: ILoginData) => {
+	return HttpRequest({
+		method: "post",
+		url: "/api/users/access",
+		data,
+	})
+}
+
+/******** HOOKS ********/
+
+export const useTokenData = (): ITokenData | null => {
+	const token = localStorage.getItem("chess-app-token")!
 
 	try {
-		const decoded: TokenData = decode_jwt(token)
-		data.payload = decoded
+		const decoded: ITokenData = decode_jwt(token)
 		if (!token || Date.now() >= decoded.exp * 1000)
 			throw Error("Invalid credentials")
+		return decoded
 	} catch {
-		data.payload = null
-		data.isError = true
+		return null
 	}
-
-	return data
 }
 
-export default useAuth
+export const useLogin = () => {
+	return useMutation(login, {
+		onSuccess: (data: IHttpResponse) => {
+			localStorage.setItem("chess-app-token", data.payload.accessToken)
+		},
+	})
+}

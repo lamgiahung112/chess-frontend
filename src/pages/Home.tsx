@@ -1,5 +1,4 @@
-import NavigationBar from "../components/NavigationBar"
-import LoginBox from "../components/LoginBox"
+import { NavigationBar, LoginBox } from "../components/"
 
 function Home() {
 	return (
