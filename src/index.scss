@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap');
+
+:root {
+    --global-background-color: #312e2b;
+    --global-color-green: #7fa650;
+    --global-color-light-green: #95bb4a;
+    --global-color-dark: hsla(0,0%,100%,.08);
+    --global-color-grey: hsla(0,0%,100%,.65);
+    --global-color-light-dark: hsla(0,0%,100%,.16);
+    --global-color-white: #fff;
+}
+
+* { 
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+}
+
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+}
+  
+ol, ul {
+    list-style: none;
+}
+
+a {
+    color: #52b1dc;
+    text-decoration: none;
+}
+
+
+.app-container {
+    background-color: var(--global-background-color);
+    min-height: 100vh;  
+}
+
+.pointer {
+    cursor: pointer;
+}

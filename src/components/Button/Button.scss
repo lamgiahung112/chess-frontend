@@ -1,0 +1,48 @@
+.button {
+    border-radius: 4px;
+    padding: 12px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+
+    &.btn-primary {
+        background-color: var(--global-color-green);
+        color: var(--global-color-white);
+
+        &:hover {
+            background-color: var(--global-color-light-green);
+        }
+    }
+
+    &.btn-secondary {
+        background-color: var(--global-color-dark);
+        color: var(--global-color-grey);
+
+        &:hover {
+            color: var(--global-color-white);
+            background-color: var(--global-color-light-dark);
+        }
+
+        &:active:hover:focus {
+            background-color: hsla(0,0%,100%,.1);
+            color: hsla(0,0%,100%,.5);
+        }
+    }
+
+    &.btn-sz-large {
+        min-width: 360px;
+    }
+
+    &.btn-sz-medium {
+        min-width: 240px;
+    }
+
+    &.btn-sz-small {
+        min-width: 120px;
+    }
+
+    &+.button {
+        margin-top: 12px;
+    }
+}

@@ -1,0 +1,94 @@
+.login-container {
+    margin-left: calc(9rem + 24px);
+    width: calc(100% - 9rem - 24px);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-15%);
+
+    .login-header {
+        width: 100%;
+        height: 3.2rem;
+        display: flex;
+        justify-content: center;
+
+        .sprite {
+            width: auto;
+            &::before {
+                background-size: 12rem auto;
+            }
+
+            &.chess-sprite::before {
+                background-position: -1.75rem 0.5rem;
+                width: 9rem;
+            }
+        }
+        margin-bottom: 24px;
+
+    }
+
+    .login-modal {
+        width: 400px;
+        height: auto;
+        background-color: rgb(38, 36, 33);
+        padding: 40px;
+        border-radius: 15px;
+    }
+
+    .login-input-container {
+        display: flex;
+        height: 2.4rem;
+        align-items: center;
+        background-color: hsla(0,0%,100%,.1);
+        border-radius: 10px;
+        border: 1px solid transparent;
+        color: var(--global-color-grey);
+
+        &+.login-input-container {
+            margin-top: 16px;
+        }
+
+        &:focus-within {
+            border-color: var(--global-color-grey);
+        }
+
+        .login-input-icon {
+            width: 2rem;
+            padding: 0.2rem;
+        }
+
+        .login-input {
+            width: 100%;
+            background-color: transparent;
+            color: currentColor;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .login-utils {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+        font-size: 0.8rem;
+
+        .checkbox-label {
+            margin-left: 8px;
+            color: #fff;
+            
+        }
+    }
+
+    .login-button {
+        margin-top: 60px;
+        height: 3.6rem;
+        font-weight: 800;
+        font-size: 1.6rem;
+        line-height: 1.6rem;
+    }
+}

@@ -1,0 +1,108 @@
+.navbar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 12px;
+    width: 9rem;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.2);
+
+    .navbar-search-input {
+        font-size: 1rem;
+        line-height: 1.1rem;
+        color: hsla(0,0%,100%,.8);
+        background-color: hsla(0,0%,100%,.1);
+        padding: 2px 8px;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        outline: none;
+        margin: 20px 0;
+        
+        &:focus {
+            border-color: hsla(0,0%,100%,.2);
+        }
+    }
+}
+
+.sprite {
+    width: 100%;
+    color: hsla(0,0%,100%,.8);
+    font-weight: 600;
+    font-size: 1.1rem;
+
+    &:hover {
+        color: #fff;
+    }
+
+    &:not(:first-of-type) {
+        display: flex;
+        margin-top: 8px;
+        align-items: center;
+
+        .sprite-title {
+            margin-left: 8px;
+        }
+    }
+
+    &::before {
+        background: url(http://chess.com/bundles/web/images/sprites/nav.868410a1.png);
+        background-size: 10.5rem auto;
+        content: "";
+        display: block;
+        flex-shrink: 0;
+        height: 2rem;
+        width: 2rem;
+    }
+
+    &.chess-sprite::before {
+        background-position: -1.5rem 0.5rem;
+        height: 3rem;
+        width: 8rem;   
+    }
+    
+    &.play-sprite::before {
+        background-position: -1.5rem -5rem;
+        height: 2.5rem;
+        width: 2.5rem;   
+    }
+
+    &.puzzle-sprite::before {
+        background-position: -1.5rem -7.5rem;
+        height: 2.5rem;
+        width: 2.5rem;   
+    }
+
+    &.learn-sprite::before {
+        background-position: -1.5rem -10.2rem;
+        height: 2.5rem;
+        width: 2.5rem;   
+    }
+
+    &.watch-sprite::before {
+        background-position: -1.5rem -12.6rem;
+        height: 2.5rem;
+        width: 2.5rem;   
+    }
+
+    &.news-sprite::before {
+        background-position: -1.5rem -22.8rem;
+        height: 2.5rem;
+        width: 2.5rem;   
+    }
+
+    &.social-sprite::before {
+        background-position: -1.5rem -15.2rem;
+        height: 2.5rem;
+        width: 2.5rem;   
+    }
+
+    &.more-sprite::before {
+        background-position: -1.5rem -17.6rem;
+        height: 2.5rem;
+        width: 2.5rem;   
+    }
+}
