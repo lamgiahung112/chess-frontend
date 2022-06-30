@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./index.scss"
-import { Home } from "./pages"
+import PrivateRoute from "./utils/PrivateRoute"
+
+import { Home, Dashboard } from "./pages"
 
 function App() {
 	return (
@@ -8,6 +10,14 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route
+						path="/dashboard"
+						element={
+							<PrivateRoute>
+								<Dashboard />
+							</PrivateRoute>
+						}
+					/>
 				</Routes>
 			</Router>
 		</div>

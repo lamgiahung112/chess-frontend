@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom"
+import { useTokenData } from "~/utils/hooks"
 import Button from "../Button"
 
 import "./NavigationBar.scss"
 
 function NavigationBar() {
+	const isSignedIn = useTokenData()
+
 	return (
 		<div className="navbar-container">
 			<Link to="/" className="sprite chess-sprite"></Link>
@@ -29,8 +32,13 @@ function NavigationBar() {
 				<span className="sprite-title">More</span>
 			</Link>
 			<input className="navbar-search-input" placeholder="Search" />
-			<Button secondary>Sign up</Button>
-			<Button>Log in</Button>
+
+			{!isSignedIn && (
+				<>
+					<Button secondary>Sign up</Button>
+					<Button>Log in</Button>
+				</>
+			)}
 		</div>
 	)
 }

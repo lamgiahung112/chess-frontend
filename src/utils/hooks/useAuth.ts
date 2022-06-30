@@ -1,11 +1,11 @@
 import decode_jwt from "jwt-decode"
+import { useNavigate } from "react-router-dom"
+import { useMutation } from "react-query"
 import { HttpRequest } from "~/utils/axios-utils"
-import { useMutation, useQueryClient } from "react-query"
-import { AxiosError, AxiosResponse } from "axios"
-import { IHttpResponse, IApiError } from "~/utils/interfaces"
+import { IApiError, IHttpResponse } from "~/utils/interfaces"
+import axios, { AxiosError } from "axios"
 
-/******** Interfaces ********/
-
+//#region Interfaces
 interface ITokenData {
 	username: string
 	iat: number
@@ -16,9 +16,9 @@ interface ILoginData {
 	username: string
 	password: string
 }
+//#endregion
 
-/******** Util functions ********/
-
+//#region Util functions
 const login = (data: ILoginData) => {
 	return HttpRequest({
 		method: "post",
@@ -26,14 +26,13 @@ const login = (data: ILoginData) => {
 		data,
 	})
 }
+//#endregion
 
-/******** HOOKS ********/
-
+//#region Hooks
 export const useTokenData = (): ITokenData | null => {
-	const token = localStorage.getItem("chess-app-token")!
-
+	const token = localStorage.getItem("chess-app-token")
 	try {
-		const decoded: ITokenData = decode_jwt(token)
+		const decoded: ITokenData = decode_jwt(token!)
 		if (!token || Date.now() >= decoded.exp * 1000)
 			throw Error("Invalid credentials")
 		return decoded
@@ -45,7 +44,8 @@ export const useTokenData = (): ITokenData | null => {
 export const useLogin = () => {
 	return useMutation(login, {
 		onSuccess: (data: IHttpResponse) => {
-			localStorage.setItem("chess-app-token", data.payload.accessToken)
+			localStorage.setItem("chess-app-token", data?.payload?.accessToken)
 		},
 	})
 }
+//#endregion

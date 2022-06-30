@@ -1,6 +1,8 @@
+import IApiError from "./APIError"
+
 interface IHttpResponse {
-	payload: any
-	additionalInfo?: any
+	payload?: any
+	errors?: IApiError
 }
 
 export default IHttpResponse

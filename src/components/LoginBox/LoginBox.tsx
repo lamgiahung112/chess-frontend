@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons"
 
@@ -6,9 +6,11 @@ import "./LoginBox.scss"
 import Button from "../Button"
 import { FormEvent, useState } from "react"
 import { useLogin } from "~/utils/hooks"
+import { IHttpResponse } from "~/utils/interfaces"
 
 function LoginBox() {
-	const { mutate: login } = useLogin()
+	const navigate = useNavigate()
+	const { mutateAsync: login } = useLogin()
 	const [input, setInput] = useState({
 		username: "",
 		password: "",
@@ -21,8 +23,9 @@ function LoginBox() {
 		})
 	}
 
-	const onLoginButtonClick = () => {
-		login(input)
+	const onLoginButtonClick = async () => {
+		const data: IHttpResponse = await login(input)
+		if (!data.errors) navigate("/dashboard")
 	}
 
 	return (
