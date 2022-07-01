@@ -8,6 +8,9 @@
     --global-color-grey: hsla(0,0%,100%,.65);
     --global-color-light-dark: hsla(0,0%,100%,.16);
     --global-color-white: #fff;
+
+    --navbar-width: 9rem;
+    --navbar-padding: 12px;
 }
 
 * { 
@@ -39,6 +42,11 @@ a {
 .app-container {
     background-color: var(--global-background-color);
     min-height: 100vh;  
+}
+
+.main {
+    margin-left: calc(var(--navbar-width) + 2*var(--navbar-padding));
+    color: #fff;
 }
 
 .pointer {

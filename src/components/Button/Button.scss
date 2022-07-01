@@ -35,11 +35,11 @@
     }
 
     &.btn-sz-medium {
-        min-width: 240px;
+        max-width: 240px;
     }
 
     &.btn-sz-small {
-        min-width: 120px;
+        max-width: 120px;
     }
 
     &+.button {

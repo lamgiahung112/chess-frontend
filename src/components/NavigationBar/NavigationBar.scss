@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 12px;
-    width: 9rem;
-    min-height: 100vh;
+    padding: var(--navbar-padding);
+    max-width: var(--navbar-width);
+    height: 100vh;
     position: fixed;
     left: 0;
     top: 0;

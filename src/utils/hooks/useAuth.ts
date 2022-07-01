@@ -2,8 +2,7 @@ import decode_jwt from "jwt-decode"
 import { useNavigate } from "react-router-dom"
 import { useMutation } from "react-query"
 import { HttpRequest } from "~/utils/axios-utils"
-import { IApiError, IHttpResponse } from "~/utils/interfaces"
-import axios, { AxiosError } from "axios"
+import { IHttpResponse } from "~/utils/interfaces"
 
 //#region Interfaces
 interface ITokenData {
@@ -16,6 +15,9 @@ interface ILoginData {
 	username: string
 	password: string
 }
+
+export type { ITokenData, ILoginData }
+
 //#endregion
 
 //#region Util functions
@@ -29,7 +31,7 @@ const login = (data: ILoginData) => {
 //#endregion
 
 //#region Hooks
-export const useTokenData = (): ITokenData | null => {
+export const useTokenData = (): ITokenData | undefined => {
 	const token = localStorage.getItem("chess-app-token")
 	try {
 		const decoded: ITokenData = decode_jwt(token!)
@@ -37,7 +39,7 @@ export const useTokenData = (): ITokenData | null => {
 			throw Error("Invalid credentials")
 		return decoded
 	} catch {
-		return null
+		return undefined
 	}
 }
 

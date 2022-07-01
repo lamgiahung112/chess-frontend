@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { useTokenData } from "~/utils/hooks"
-import { NavigationBar, LoginBox } from "../components/"
+import { NavigationBar, LoginBox } from "../components"
 
 function Home() {
 	const isSignedIn = useTokenData()
-	const navigate = useNavigate()
 
-	if (isSignedIn) navigate("/dashboard")
+	if (isSignedIn) return <Navigate to="/dashboard" />
 
 	return (
 		<>
