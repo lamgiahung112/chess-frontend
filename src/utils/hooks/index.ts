@@ -1,1 +1,2 @@
-export * from "./useAuth"
+export * from "./authHooks"
+export * from "./gameHooks"

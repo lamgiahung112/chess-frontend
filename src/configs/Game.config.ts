@@ -1,32 +1,28 @@
 import { type } from "os"
 
-enum PIECE {
+const PIECE = {
 	// Pawns
-	P1,
-	P2,
-	P3,
-	P4,
-	P5,
-	P6,
-	P7,
-	P8,
+	BP: "BP",
+	WP: "WP",
 	// Rooks
-	R1,
-	R2,
+	BR: "BR",
+	WR: "WR",
 	// Knights
-	K1,
-	K2,
+	BKn: "BKn",
+	WKn: "WKn",
 	// Bishops
-	B1,
-	B2,
+	BB: "BB",
+	WB: "WB",
 	// Queen
-	Q,
+	BQ: "BQ",
+	WQ: "WQ",
 	// King
-	K,
+	BK: "BK",
+	WK: "WK",
 }
 
 interface IMove {
-	piece: PIECE
+	piece: string
 	turn: "WHITE" | "BLACK"
 	from: {
 		x: string
@@ -39,111 +35,55 @@ interface IMove {
 }
 
 interface IGameData {
-	board: Record<
-		string,
-		Array<{
-			piece: PIECE | ""
-			side?: "WHITE" | "BLACK"
-		}>
-	>
+	board: {
+		[num: number]: string
+	}
 	moves: IMove[]
 	turn: "WHITE" | "BLACK"
 }
 
 const gameInitialState: IGameData = {
 	board: {
-		// A1 -> A8
-		a: [
-			{ piece: PIECE.R1, side: "WHITE" },
-			{ piece: PIECE.P1, side: "WHITE" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: PIECE.P1, side: "BLACK" },
-			{ piece: PIECE.R1, side: "BLACK" },
-		],
-		// B1 -> B8
-		b: [
-			{ piece: PIECE.K1, side: "WHITE" },
-			{ piece: PIECE.P2, side: "WHITE" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: PIECE.P2, side: "BLACK" },
-			{ piece: PIECE.K1, side: "BLACK" },
-		],
-		// C1 -> C8
-		c: [
-			{ piece: PIECE.B1, side: "WHITE" },
-			{ piece: PIECE.P3, side: "WHITE" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: PIECE.P3, side: "BLACK" },
-			{ piece: PIECE.B1, side: "BLACK" },
-		],
-		// D1 -> D8
-		d: [
-			{ piece: PIECE.Q, side: "WHITE" },
-			{ piece: PIECE.P4, side: "WHITE" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: PIECE.P4, side: "BLACK" },
-			{ piece: PIECE.Q, side: "BLACK" },
-		],
-		// E1 -> E8
-		e: [
-			{ piece: PIECE.K, side: "WHITE" },
-			{ piece: PIECE.P5, side: "WHITE" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: PIECE.P5, side: "BLACK" },
-			{ piece: PIECE.K, side: "BLACK" },
-		],
-		// F1 -> F8
-		f: [
-			{ piece: PIECE.B2, side: "WHITE" },
-			{ piece: PIECE.P6, side: "WHITE" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: PIECE.P6, side: "BLACK" },
-			{ piece: PIECE.B2, side: "BLACK" },
-		],
-		// G1 -> G8
-		g: [
-			{ piece: PIECE.K2, side: "WHITE" },
-			{ piece: PIECE.P7, side: "WHITE" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: PIECE.P7, side: "BLACK" },
-			{ piece: PIECE.K2, side: "BLACK" },
-		],
-		// H1 -> H8
-		h: [
-			{ piece: PIECE.R2, side: "WHITE" },
-			{ piece: PIECE.P8, side: "WHITE" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: "" },
-			{ piece: PIECE.P8, side: "BLACK" },
-			{ piece: PIECE.R2, side: "BLACK" },
-		],
+		// White side
+		11: PIECE.WR,
+		12: PIECE.WKn,
+		13: PIECE.WB,
+		14: PIECE.WQ,
+		15: PIECE.WK,
+		16: PIECE.WB,
+		17: PIECE.WKn,
+		18: PIECE.WR,
+		//
+		21: PIECE.WP,
+		22: PIECE.WP,
+		23: PIECE.WP,
+		24: PIECE.WP,
+		25: PIECE.WP,
+		26: PIECE.WP,
+		27: PIECE.WP,
+		28: PIECE.WP,
+		// Black side
+		71: PIECE.BP,
+		72: PIECE.BP,
+		73: PIECE.BP,
+		74: PIECE.BP,
+		75: PIECE.BP,
+		76: PIECE.BP,
+		77: PIECE.BP,
+		78: PIECE.BP,
+		//
+		81: PIECE.BR,
+		82: PIECE.BKn,
+		83: PIECE.BB,
+		84: PIECE.BQ,
+		85: PIECE.BK,
+		86: PIECE.BB,
+		87: PIECE.BKn,
+		88: PIECE.BR,
 	},
 	moves: [],
 	turn: "WHITE",
 }
 
-export type { IGameData, IMove, PIECE }
-export { gameInitialState }
+export type { IGameData, IMove }
+export { gameInitialState, PIECE }

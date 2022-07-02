@@ -1,0 +1,370 @@
+.board-container {
+    width: calc(100% - var(--nav-width));
+    padding: 40px;
+}
+
+.board {
+    background-image: url(https://images.chesscomfiles.com/chess-themes/boards/green/150.png);
+    height: var(--board-height);
+    width: var(--board-height);
+    background-size: 100%;
+    position: relative;
+
+    .coordinate {
+        font-size: 0.15rem;
+
+        .coordinate-light {
+            fill: var(--global-color-green);
+        }
+
+        .coordinate-dark {
+            fill: #edeed1;
+        }
+    }
+
+    .piece {
+        background-size: 100%;
+        height: 12.5%;
+        left: 0;
+        top: 0;
+        overflow: hidden;
+        position: absolute;
+        width: 12.5%;
+        cursor: -webkit-grab;
+
+        &.highlight {
+            background-color: rgb(255, 255, 0);
+            opacity: 0.5;
+        }
+    }
+
+    .hint {
+        background-clip: content-box;
+        height: 12.5%;
+        width: 12.5%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        cursor: -webkit-grab;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .hint-circle {
+            width: 25%;
+            height: 25%;
+            background-color: rgba(0,0,0,.1);
+            border-radius: 50%;
+        }
+    }
+
+    .BR {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/br.png);
+    }
+
+    .WR {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wr.png);
+    }
+
+    .WKn {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wn.png);
+    }
+
+    .BKn {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bn.png);
+    }
+
+    .WB {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wb.png);
+    }
+
+    .BB {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bb.png);
+    }
+
+    .WQ {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wq.png);
+    }
+
+    .BQ {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bq.png);
+    }
+
+    .WK {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wk.png);
+    }
+
+    .BK {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bk.png);
+    }
+
+    .WP {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/wp.png);
+    }
+
+    .BP {
+        background-image: url(https://images.chesscomfiles.com/chess-themes/pieces/neo/150/bp.png);
+    }
+
+
+    // position of rooks
+    .square-11 {
+        transform: translateY(700%);
+    }
+
+    .square-88 {
+        transform: translateX(700%);
+    }
+
+    .square-18 {
+        transform: translateX(700%) + translateY(700%);
+    }
+
+    // position of knights
+    .square-12 {
+        transform: translateY(700%) + translateX(100%);
+    }
+
+    .square-17 {
+        transform: translateY(700%) + translateX(600%);
+    }
+
+    .square-82 {
+        transform: translateX(100%);
+    }
+
+    .square-87 {
+        transform: translateX(600%);
+    }
+
+    // position of bishops
+    .square-13 {
+        transform: translateY(700%) + translateX(200%);
+    }
+
+    .square-16 {
+        transform: translateY(700%) + translateX(500%);
+    }
+
+    .square-83 {
+        transform: translateX(200%);
+    }
+
+    .square-86 {
+        transform: translateX(500%);
+    }
+
+    // position of queens
+    .square-14 {
+        transform: translateY(700%) + translateX(300%);
+    }
+
+    .square-84 {
+        transform: translateX(300%);
+    }
+
+    // position of kings
+    .square-15 {
+        transform: translateY(700%) + translateX(400%);
+    }
+
+    .square-85 {
+        transform: translateX(400%);
+    }
+
+    // position of pawns
+    .square-21 {
+        transform: translateY(600%) + translateX(0);
+    }
+
+    .square-22 {
+        transform: translateY(600%) + translateX(100%);
+    }
+
+    .square-23 {
+        transform: translateY(600%) + translateX(200%);
+    }
+
+    .square-24 {
+        transform: translateY(600%) + translateX(300%);
+    }
+
+    .square-25 {
+        transform: translateY(600%) + translateX(400%);
+    }
+
+    .square-26 {
+        transform: translateY(600%) + translateX(500%);
+    }
+
+    .square-27 {
+        transform: translateY(600%) + translateX(600%);
+    }
+
+    .square-28 {
+        transform: translateY(600%) + translateX(700%);
+    }
+
+    .square-71 {
+        transform: translateY(100%) + translateX(0);
+    }
+
+    .square-72 {
+        transform: translateY(100%) + translateX(100%);
+    }
+
+    .square-73 {
+        transform: translateY(100%) + translateX(200%);
+    }
+
+    .square-74 {
+        transform: translateY(100%) + translateX(300%);
+    }
+
+    .square-75 {
+        transform: translateY(100%) + translateX(400%);
+    }
+
+    .square-76 {
+        transform: translateY(100%) + translateX(500%);
+    }
+
+    .square-77 {
+        transform: translateY(100%) + translateX(600%);
+    }
+
+    .square-78 {
+        transform: translateY(100%) + translateX(700%);
+    }
+
+    // other positions
+    .square-31 {
+        transform: translateX(0%) + translateY(500%);
+    }
+
+    .square-32 {
+        transform: translateX(100%) + translateY(500%);
+    }
+
+    .square-33 {
+        transform: translateX(200%) + translateY(500%);
+    }
+
+    .square-34 {
+        transform: translateX(300%) + translateY(500%);
+    }
+
+    .square-35 {
+        transform: translateX(400%) + translateY(500%);
+    }
+
+    .square-36 {
+        transform: translateX(500%) + translateY(500%);
+    }
+
+    .square-37 {
+        transform: translateX(600%) + translateY(500%);
+    }
+
+    .square-38 {
+        transform: translateX(700%) + translateY(500%);
+    }
+
+    .square-41 {
+        transform: translateX(0) + translateY(400%);
+    }
+
+    .square-42 {
+        transform: translateX(100%) + translateY(400%);
+    }
+
+    .square-43 {
+        transform: translateX(200%) + translateY(400%);
+    }
+
+    .square-44 {
+        transform: translateX(300%) + translateY(400%);
+    }
+
+    .square-45 {
+        transform: translateX(400%) + translateY(400%);
+    }
+
+    .square-46 {
+        transform: translateX(500%) + translateY(400%);
+    }
+
+    .square-47 {
+        transform: translateX(600%) + translateY(400%);
+    }
+
+    .square-48 {
+        transform: translateX(700%) + translateY(400%);
+    }
+
+    .square-51 {
+        transform: translateX(0%) + translateY(300%);
+    }
+
+    .square-52 {
+        transform: translateX(100%) + translateY(300%);
+    }
+
+    .square-53 {
+        transform: translateX(200%) + translateY(300%);
+    }
+
+    .square-54 {
+        transform: translateX(300%) + translateY(300%);
+    }
+
+    .square-55 {
+        transform: translateX(400%) + translateY(300%);
+    }
+
+    .square-56 {
+        transform: translateX(500%) + translateY(300%);
+    }
+
+    .square-57 {
+        transform: translateX(600%) + translateY(300%);
+    }
+
+    .square-58 {
+        transform: translateX(700%) + translateY(300%);
+    }
+
+    .square-61 {
+        transform: translateX(0%) + translateY(200%);
+    }
+
+    .square-62 {
+        transform: translateX(100%) + translateY(200%);
+    }
+
+    .square-63 {
+        transform: translateX(200%) + translateY(200%);
+    }
+
+    .square-64 {
+        transform: translateX(300%) + translateY(200%);
+    }
+
+    .square-65 {
+        transform: translateX(400%) + translateY(200%);
+    }
+
+    .square-66 {
+        transform: translateX(500%) + translateY(200%);
+    }
+
+    .square-67 {
+        transform: translateX(600%) + translateY(200%);
+    }
+
+    .square-68 {
+        transform: translateX(700%) + translateY(200%);
+    }
+}
+

@@ -1,4 +1,5 @@
 import { NavigationBar } from "~/components"
+import GameContainer from "~/components/GameContainer"
 import Room from "~/components/Room"
 
 function Dashboard() {
@@ -6,7 +7,7 @@ function Dashboard() {
 		<>
 			<NavigationBar />
 			<div className="main">
-				<Room />
+				<GameContainer />
 			</div>
 		</>
 	)
