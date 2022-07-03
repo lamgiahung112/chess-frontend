@@ -16,7 +16,9 @@ const notCollapseWithAlly = (
 	},
 	piece: string
 ): boolean => {
-	return !board[position].startsWith(piece.startsWith("B") ? "B" : "W")
+	return (
+		!board[position] || !board[position].startsWith(piece.startsWith("B") ? "B" : "W")
+	)
 }
 
 export const useGetViableMoves = (
@@ -34,8 +36,7 @@ export const useGetViableMoves = (
 	if (piece === PIECE.BP) {
 		if (isValid(currentPosition - 10)) {
 			// forward 1 step
-			if (!board[currentPosition - 10])
-				viableMoves.push(currentPosition - 10)
+			if (!board[currentPosition - 10]) viableMoves.push(currentPosition - 10)
 
 			//forward 2 step
 			if (
@@ -68,8 +69,7 @@ export const useGetViableMoves = (
 	if (piece === PIECE.WP) {
 		if (isValid(currentPosition + 10)) {
 			// forward 1 step
-			if (!board[currentPosition + 10])
-				viableMoves.push(currentPosition + 10)
+			if (!board[currentPosition + 10]) viableMoves.push(currentPosition + 10)
 
 			//forward 2 step
 			if (
@@ -97,39 +97,226 @@ export const useGetViableMoves = (
 	}
 	//#endregion
 
-	//#region Black rooks
+	//#region rooks
 	if (piece === PIECE.BR || piece === PIECE.WR) {
 		// go left
 		for (let i = currentPosition - 1; ; i--) {
 			if (!isValid(i)) break
-			if (!board[i] || notCollapseWithAlly(i, board, piece))
-				viableMoves.push(i)
+			if (!board[i] || notCollapseWithAlly(i, board, piece)) viableMoves.push(i)
 			if (board[i]) break
 		}
 		// go right
 		for (let i = currentPosition + 1; ; i++) {
 			if (!isValid(i)) break
-			if (!board[i] || notCollapseWithAlly(i, board, piece))
-				viableMoves.push(i)
+			if (!board[i] || notCollapseWithAlly(i, board, piece)) viableMoves.push(i)
 			if (board[i]) break
 		}
 
 		// go down
 		for (let i = currentPosition - 10; ; i -= 10) {
 			if (!isValid(i)) break
-			if (!board[i] || notCollapseWithAlly(i, board, piece))
-				viableMoves.push(i)
+			if (!board[i] || notCollapseWithAlly(i, board, piece)) viableMoves.push(i)
 			if (board[i]) break
 		}
 
 		// go up
 		for (let i = currentPosition + 10; ; i += 10) {
 			if (!isValid(i)) break
-			if (!board[i] || notCollapseWithAlly(i, board, piece))
-				viableMoves.push(i)
+			if (!board[i] || notCollapseWithAlly(i, board, piece)) viableMoves.push(i)
 			if (board[i]) break
 		}
 	}
 	//#endregion
+
+	//#region Knights
+	if (piece === PIECE.BKn || piece === PIECE.WKn) {
+		console.log(piece)
+		if (
+			isValid(currentPosition + 20 - 1) &&
+			notCollapseWithAlly(currentPosition + 20 - 1, board, piece)
+		)
+			viableMoves.push(currentPosition + 20 - 1)
+
+		if (
+			isValid(currentPosition + 20 + 1) &&
+			notCollapseWithAlly(currentPosition + 20 + 1, board, piece)
+		)
+			viableMoves.push(currentPosition + 20 + 1)
+
+		if (
+			isValid(currentPosition - 20 - 1) &&
+			notCollapseWithAlly(currentPosition - 20 - 1, board, piece)
+		)
+			viableMoves.push(currentPosition - 20 - 1)
+
+		if (
+			isValid(currentPosition - 20 + 1) &&
+			notCollapseWithAlly(currentPosition - 20 + 1, board, piece)
+		)
+			viableMoves.push(currentPosition - 20 + 1)
+
+		if (
+			isValid(currentPosition + 10 - 2) &&
+			notCollapseWithAlly(currentPosition + 10 - 2, board, piece)
+		)
+			viableMoves.push(currentPosition + 10 - 2)
+
+		if (
+			isValid(currentPosition + 10 + 2) &&
+			notCollapseWithAlly(currentPosition + 10 + 2, board, piece)
+		)
+			viableMoves.push(currentPosition + 10 + 2)
+
+		if (
+			isValid(currentPosition - 10 - 2) &&
+			notCollapseWithAlly(currentPosition - 10 - 2, board, piece)
+		)
+			viableMoves.push(currentPosition - 10 - 2)
+
+		if (
+			isValid(currentPosition - 10 + 2) &&
+			notCollapseWithAlly(currentPosition - 10 + 2, board, piece)
+		)
+			viableMoves.push(currentPosition - 10 + 2)
+	}
+
+	//#endregion
+
+	//#region Bishops
+	if (piece === PIECE.BB || piece === PIECE.WB) {
+		// Cheo' phai tren
+		let nextPos = currentPosition + 11
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += 11
+		}
+
+		// cheo trai tren
+		nextPos = currentPosition + 10 - 1
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += 10 - 1
+		}
+
+		// cheo phai duoi
+		nextPos = currentPosition - 10 + 1
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += -10 + 1
+		}
+
+		// cheo trai duoi
+		nextPos = currentPosition - 10 - 1
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += -10 - 1
+		}
+	}
+	//#endregion
+
+	//#region Queens
+	if (piece === PIECE.BQ || piece === PIECE.WQ) {
+		// Cheo' phai tren
+		let nextPos = currentPosition + 11
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += 11
+		}
+
+		// cheo trai tren
+		nextPos = currentPosition + 10 - 1
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += 10 - 1
+		}
+
+		// cheo phai duoi
+		nextPos = currentPosition - 10 + 1
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += -10 + 1
+		}
+
+		// cheo trai duoi
+		nextPos = currentPosition - 10 - 1
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += -10 - 1
+		}
+
+		// thang tren
+		nextPos = currentPosition + 10
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += 10
+		}
+
+		// thang duoi
+		nextPos = currentPosition - 10
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += -10
+		}
+
+		// ngang ben phai
+		nextPos = currentPosition + 1
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += 1
+		}
+
+		// ngang ben trai
+		nextPos = currentPosition - 1
+		while (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+			nextPos += -1
+		}
+	}
+	//#endregion
+
+	//#region King
+	if (piece === PIECE.BK || piece === PIECE.WK) {
+		let nextPos = currentPosition + 10
+		if (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+		}
+
+		nextPos = currentPosition - 10
+		if (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+		}
+
+		nextPos = currentPosition + 1
+		if (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+		}
+
+		nextPos = currentPosition - 1
+		if (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+		}
+
+		nextPos = currentPosition + 10 + 1
+		if (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+		}
+
+		nextPos = currentPosition + 10 - 1
+		if (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+		}
+
+		nextPos = currentPosition - 10 + 1
+		if (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+		}
+
+		nextPos = currentPosition - 10 - 1
+		if (isValid(nextPos) && notCollapseWithAlly(nextPos, board, piece)) {
+			viableMoves.push(nextPos)
+		}
+	}
+	//#endregion
+
 	return viableMoves
 }

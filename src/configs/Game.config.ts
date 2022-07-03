@@ -21,24 +21,10 @@ const PIECE = {
 	WK: "WK",
 }
 
-interface IMove {
-	piece: string
-	turn: "WHITE" | "BLACK"
-	from: {
-		x: string
-		y: number
-	}
-	to: {
-		x: string
-		y: number
-	}
-}
-
 interface IGameData {
 	board: {
 		[num: number]: string
 	}
-	moves: IMove[]
 	turn: "WHITE" | "BLACK"
 }
 
@@ -81,9 +67,8 @@ const gameInitialState: IGameData = {
 		87: PIECE.BKn,
 		88: PIECE.BR,
 	},
-	moves: [],
 	turn: "WHITE",
 }
 
-export type { IGameData, IMove }
+export type { IGameData }
 export { gameInitialState, PIECE }

@@ -16,7 +16,13 @@ interface ILoginData {
 	password: string
 }
 
-export type { ITokenData, ILoginData }
+interface ISignupData {
+	username: string
+	email: string
+	password: string
+}
+
+export type { ITokenData, ILoginData, ISignupData }
 
 //#endregion
 
@@ -28,6 +34,14 @@ const login = (data: ILoginData) => {
 		data,
 	})
 }
+
+const signup = (data: ISignupData) => {
+	return HttpRequest({
+		method: "post",
+		url: "/api/users",
+		data,
+	})
+}
 //#endregion
 
 //#region Hooks
@@ -35,8 +49,7 @@ export const useTokenData = (): ITokenData | undefined => {
 	const token = localStorage.getItem("chess-app-token")
 	try {
 		const decoded: ITokenData = decode_jwt(token!)
-		if (!token || Date.now() >= decoded.exp * 1000)
-			throw Error("Invalid credentials")
+		if (!token || Date.now() >= decoded.exp * 1000) throw Error("Invalid credentials")
 		return decoded
 	} catch {
 		return undefined
@@ -49,5 +62,9 @@ export const useLogin = () => {
 			localStorage.setItem("chess-app-token", data?.payload?.accessToken)
 		},
 	})
+}
+
+export const useSignup = () => {
+	return useMutation(signup)
 }
 //#endregion

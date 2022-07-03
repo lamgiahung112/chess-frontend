@@ -12,7 +12,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = (props: Props) => {
 	const componentClasses = `${props.className} button ${
 		props.secondary ? "btn-secondary" : "btn-primary"
-	} btn-sz-${props.size || "small"}`
+	} btn-sz-${props.size || "small"} ${props.disabled && "disabled"}`
 
 	return (
 		<button

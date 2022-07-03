@@ -30,11 +30,12 @@
     }
 
     .login-modal {
-        width: 400px;
+        width: 240px;
         height: auto;
         background-color: rgb(38, 36, 33);
         padding: 40px;
-        border-radius: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
     }
 
     .login-input-container {
@@ -42,7 +43,7 @@
         height: 2.4rem;
         align-items: center;
         background-color: hsla(0,0%,100%,.1);
-        border-radius: 10px;
+        border-radius: 5px;
         border: 1px solid transparent;
         color: var(--global-color-grey);
 
@@ -90,5 +91,21 @@
         font-weight: 800;
         font-size: 1.6rem;
         line-height: 1.6rem;
+    }
+
+    .login-link {
+        width: 240px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        background-color: rgba(0,0,0,.3);
+        padding: 20px 40px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+
+        :first-child {
+            margin-right: 8px;
+        }
     }
 }

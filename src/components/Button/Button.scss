@@ -6,12 +6,20 @@
     cursor: pointer;
     width: 100%;
 
+    &.disabled {
+        pointer-events: none;
+    }
+
     &.btn-primary {
         background-color: var(--global-color-green);
         color: var(--global-color-white);
 
         &:hover {
             background-color: var(--global-color-light-green);
+        }
+
+        &.disabled {
+            background-color: #819a67;
         }
     }
 

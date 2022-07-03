@@ -1,19 +1,20 @@
 import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faLock, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons"
 
-import "./LoginBox.scss"
+import "./SignupBox.scss"
 import Button from "../Button"
 import { FormEvent, useState } from "react"
-import { useLogin } from "~/utils/hooks"
-import { IHttpResponse } from "~/utils/interfaces"
+import { useSignup } from "~/utils/hooks"
 
-function LoginBox() {
+function SignupBox() {
 	const navigate = useNavigate()
-	const { mutateAsync: login } = useLogin()
+	const { mutateAsync: signup } = useSignup()
+
 	const [input, setInput] = useState({
 		username: "",
 		password: "",
+		email: "",
 	})
 
 	const onInputChange = (e: FormEvent<HTMLInputElement>) => {
@@ -23,9 +24,9 @@ function LoginBox() {
 		})
 	}
 
-	const onLoginButtonClick = async () => {
-		const data: IHttpResponse = await login(input)
-		if (!data.errors) navigate("/dashboard")
+	const onSignupButtonClick = async () => {
+		await signup(input)
+		navigate("/login")
 	}
 
 	return (
@@ -34,6 +35,10 @@ function LoginBox() {
 				<Link to="/" className="sprite chess-sprite"></Link>
 			</div>
 			<div className="login-modal">
+				<div className="login-banner">
+					<h1>JOIN NOW</h1>
+					<h4>and Start Playing Chess!</h4>
+				</div>
 				<div className="login-input-container">
 					<FontAwesomeIcon icon={faUser} className="login-input-icon" />
 					<input
@@ -41,6 +46,17 @@ function LoginBox() {
 						placeholder="Username"
 						name="username"
 						value={input.username}
+						onChange={onInputChange}
+					/>
+				</div>
+				<div className="login-input-container">
+					<FontAwesomeIcon icon={faEnvelope} className="login-input-icon" />
+					<input
+						className="login-input"
+						placeholder="Email"
+						name="email"
+						type="email"
+						value={input.email}
 						onChange={onInputChange}
 					/>
 				</div>
@@ -55,40 +71,22 @@ function LoginBox() {
 						onChange={onInputChange}
 					/>
 				</div>
-
-				<div className="login-utils">
-					<div style={{ display: "flex" }}>
-						<input
-							type="checkbox"
-							id="remmeber-password-cb"
-							className="pointer"
-						/>
-						<label
-							htmlFor="remmeber-password-cb"
-							className="checkbox-label pointer"
-						>
-							Remember me
-						</label>
-					</div>
-					<div>
-						<Link to="/">Forgot password?</Link>
-					</div>
-				</div>
 				<Button
 					primary
 					size="medium"
 					className="login-button"
-					onClick={onLoginButtonClick}
+					disabled={!(input.email && input.password && input.username)}
+					onClick={onSignupButtonClick}
 				>
-					Log in
+					Sign up
 				</Button>
 			</div>
 			<div className="login-link">
-				<span>New?</span>
-				<Link to="/signup">Signup - and start playing!</Link>
+				<span>Already have an account?</span>
+				<Link to="/login">Login</Link>
 			</div>
 		</div>
 	)
 }
 
-export default LoginBox
+export default SignupBox

@@ -1,8 +1,13 @@
 import { Navigate } from "react-router-dom"
 import { useTokenData } from "~/utils/hooks"
-import { NavigationBar, LoginBox } from "../components"
+import { NavigationBar, LoginBox, SignupBox } from "../components"
 
-function Home() {
+interface IProps {
+	isSignUpPage?: boolean
+	isLoginPage?: boolean
+}
+
+function Home(props: IProps) {
 	const isSignedIn = useTokenData()
 
 	if (isSignedIn) return <Navigate to="/dashboard" />
@@ -10,7 +15,8 @@ function Home() {
 	return (
 		<>
 			<NavigationBar />
-			<LoginBox />
+			{!props.isSignUpPage && <LoginBox />}
+			{props.isSignUpPage && <SignupBox />}
 		</>
 	)
 }
