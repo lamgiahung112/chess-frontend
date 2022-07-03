@@ -30,7 +30,7 @@
     }
 
     .login-modal {
-        width: 240px;
+        width: var(--login-box-width);
         height: auto;
         background-color: rgb(38, 36, 33);
         padding: 40px;
@@ -94,7 +94,7 @@
     }
 
     .login-link {
-        width: 240px;
+        width: var(--login-box-width);
         display: flex;
         justify-content: center;
         align-items: center;

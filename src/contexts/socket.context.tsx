@@ -1,7 +1,9 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import io, { Socket } from "socket.io-client"
 import { IGameData, gameInitialState } from "~/configs/Game.config"
 import { EVENTS } from "~/configs/Socket.config"
+import { useTokenData } from "~/utils/hooks"
 import { SOCKET_URL } from "../configs/default"
 
 const socket = io(SOCKET_URL)
@@ -30,10 +32,12 @@ const SocketProvider = ({ children }: PropsWithChildren) => {
 		setGameData(gameInitialState)
 	})
 
+	socket.on(EVENTS.SERVER.PLAYER_JOIN_CLIENT_ROOM, ({ username }) => {
+		console.log(`${username} joined`)
+	})
+
 	return (
-		<SocketContext.Provider
-			value={{ socket, rooms, roomID, gameData, setGameData }}
-		>
+		<SocketContext.Provider value={{ socket, rooms, roomID, gameData, setGameData }}>
 			{children}
 		</SocketContext.Provider>
 	)

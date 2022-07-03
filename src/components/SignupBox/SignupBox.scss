@@ -1,5 +1,5 @@
 .login-banner {
-    width: 240px;
+    width: var(--login-box-width);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

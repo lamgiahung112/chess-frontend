@@ -76,7 +76,7 @@ function LoginBox() {
 				</div>
 				<Button
 					primary
-					size="medium"
+					size="large"
 					className="login-button"
 					onClick={onLoginButtonClick}
 				>

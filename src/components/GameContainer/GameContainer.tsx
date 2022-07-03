@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react"
+import { EVENTS } from "~/configs/Socket.config"
 import { useSocket } from "~/contexts/socket.context"
 import { useGetViableMoves, useTokenData } from "~/utils/hooks"
 import Coordinates from "./Coordinates"
 import "./GameContainer.scss"
 
-function GameContainer() {
-	const { socket, roomID, gameData, setGameData } = useSocket()
+interface IProps {
+	_roomID: string
+}
+
+function GameContainer(props: IProps) {
 	const { username } = useTokenData()!
+	const { socket, gameData, setGameData, roomID } = useSocket()
 
 	const [currentPiece, setCurrentPiece] = useState(0)
 	const [viableMoves, setViableMoves] = useState<number[]>([])
@@ -19,6 +24,12 @@ function GameContainer() {
 		)
 		setViableMoves(positions)
 	}, [currentPiece])
+
+	// emit event join room when first render
+	useEffect(() => {
+		if (roomID) return
+		socket.emit(EVENTS.CLIENT.JOIN_ROOM, { _roomID: props._roomID, username })
+	}, [])
 
 	const handleMove = (position: number) => {
 		setGameData!({
@@ -37,18 +48,14 @@ function GameContainer() {
 			<div className="board">
 				<Coordinates onClick={() => setCurrentPiece(0)} />
 
-				{currentPiece && (
-					<div
-						className={`piece square-${currentPiece} highlight`}
-					></div>
+				{currentPiece !== 0 && (
+					<div className={`piece square-${currentPiece} highlight`}></div>
 				)}
 
 				{Object.keys(gameData?.board!).map((key) => (
 					<div
 						key={key}
-						className={`piece ${
-							gameData?.board[Number(key)]
-						} square-${key}`}
+						className={`piece ${gameData?.board[Number(key)]} square-${key}`}
 						onClick={() => setCurrentPiece(Number(key))}
 					></div>
 				))}

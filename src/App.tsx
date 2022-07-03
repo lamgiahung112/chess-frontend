@@ -3,6 +3,7 @@ import "./index.scss"
 import PrivateRoute from "./utils/PrivateRoute"
 
 import { Home, Dashboard } from "./pages"
+import GamePage from "./pages/Game.page"
 
 function App() {
 	return (
@@ -16,6 +17,14 @@ function App() {
 						element={
 							<PrivateRoute>
 								<Dashboard />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path="/game/:_roomID"
+						element={
+							<PrivateRoute>
+								<GamePage />
 							</PrivateRoute>
 						}
 					/>

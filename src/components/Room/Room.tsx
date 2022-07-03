@@ -2,10 +2,15 @@ import { createRef } from "react"
 import { useSocket } from "~/contexts/socket.context"
 import { EVENTS } from "~/configs/Socket.config"
 import Button from "../Button"
+import { useTokenData } from "~/utils/hooks"
+import { Navigate } from "react-router-dom"
 
 function Room() {
+	const { username } = useTokenData()!
 	const { socket, rooms, roomID } = useSocket()
 	const newRoomRef = createRef<HTMLInputElement>()
+
+	if (roomID) return <Navigate to={`/game/${roomID}`} />
 
 	function handleCreateRoom() {
 		const roomName = newRoomRef.current?.value || ""
@@ -14,6 +19,10 @@ function Room() {
 
 		socket.emit(EVENTS.CLIENT.CREATE_ROOM, { roomName })
 		if (newRoomRef.current?.value) newRoomRef.current.value = ""
+	}
+
+	function handleJoinRoom(_roomID: string) {
+		socket.emit(EVENTS.CLIENT.JOIN_ROOM, { _roomID, username })
 	}
 
 	return (
@@ -25,7 +34,9 @@ function Room() {
 
 			<div className="room-list">
 				{Object.keys(rooms).map((key) => (
-					<div key={key}>{rooms[key].name}</div>
+					<div key={key} onClick={() => handleJoinRoom(key)}>
+						{rooms[key].name}
+					</div>
 				))}
 			</div>
 		</div>
