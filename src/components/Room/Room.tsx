@@ -1,4 +1,4 @@
-import { createRef } from "react"
+import { createRef, useEffect } from "react"
 import { useSocket } from "~/contexts/socket.context"
 import { EVENTS } from "~/configs/Socket.config"
 import Button from "../Button"
@@ -9,6 +9,10 @@ function Room() {
 	const { username } = useTokenData()!
 	const { socket, rooms, roomID } = useSocket()
 	const newRoomRef = createRef<HTMLInputElement>()
+
+	useEffect(() => {
+		socket.emit(EVENTS.CLIENT.REFRESH_ROOM)
+	}, [])
 
 	if (roomID) return <Navigate to={`/game/${roomID}`} />
 
@@ -28,9 +32,7 @@ function Room() {
 	return (
 		<div className="room-container">
 			<input placeholder="Room name" ref={newRoomRef} />
-			<Button size="medium" onClick={handleCreateRoom}>
-				Create a room
-			</Button>
+			<Button onClick={handleCreateRoom}>Create a room</Button>
 
 			<div className="room-list">
 				{Object.keys(rooms).map((key) => (

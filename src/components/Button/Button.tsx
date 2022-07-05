@@ -4,7 +4,6 @@ import "./Button.scss"
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	primary?: boolean
 	secondary?: boolean
-	size?: String
 	disabled?: boolean
 	className?: string
 }
@@ -12,7 +11,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = (props: Props) => {
 	const componentClasses = `${props.className} button ${
 		props.secondary ? "btn-secondary" : "btn-primary"
-	} btn-sz-${props.size || "small"} ${props.disabled && "disabled"}`
+	}`
 
 	return (
 		<button

@@ -1,6 +1,8 @@
 .board-container {
     width: calc(100% - var(--nav-width));
     padding: 40px;
+    display: flex;
+    flex-direction: row;
 }
 
 .board {

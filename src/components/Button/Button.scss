@@ -38,18 +38,6 @@
         }
     }
 
-    &.btn-sz-large {
-        min-width: 360px;
-    }
-
-    &.btn-sz-medium {
-        max-width: 240px;
-    }
-
-    &.btn-sz-small {
-        max-width: 120px;
-    }
-
     &+.button {
         margin-top: 12px;
     }

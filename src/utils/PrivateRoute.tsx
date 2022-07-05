@@ -5,7 +5,7 @@ import { PropsWithChildren } from "react"
 function PrivateRoute(props: PropsWithChildren) {
 	const isValid = useTokenData()
 
-	if (!isValid) return <Navigate to="/" />
+	if (!isValid) return <Navigate to="/login" />
 
 	return <>{props.children}</>
 }

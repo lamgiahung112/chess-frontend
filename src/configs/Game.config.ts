@@ -25,7 +25,7 @@ interface IGameData {
 	board: {
 		[num: number]: string
 	}
-	turn: "WHITE" | "BLACK"
+	turn: "W" | "B"
 }
 
 const gameInitialState: IGameData = {
@@ -67,7 +67,7 @@ const gameInitialState: IGameData = {
 		87: PIECE.BKn,
 		88: PIECE.BR,
 	},
-	turn: "WHITE",
+	turn: "B",
 }
 
 export type { IGameData }

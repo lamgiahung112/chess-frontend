@@ -73,7 +73,6 @@ function SignupBox() {
 				</div>
 				<Button
 					primary
-					size="large"
 					className="login-button"
 					disabled={!(input.email && input.password && input.username)}
 					onClick={onSignupButtonClick}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { IGameData } from "~/configs/Game.config"
 import { EVENTS } from "~/configs/Socket.config"
 import { useSocket } from "~/contexts/socket.context"
 import { useGetViableMoves, useTokenData } from "~/utils/hooks"
@@ -11,7 +12,7 @@ interface IProps {
 
 function GameContainer(props: IProps) {
 	const { username } = useTokenData()!
-	const { socket, gameData, setGameData, roomID } = useSocket()
+	const { socket, gameData, roomID, setGameData, side, rooms } = useSocket()
 
 	const [currentPiece, setCurrentPiece] = useState(0)
 	const [viableMoves, setViableMoves] = useState<number[]>([])
@@ -32,14 +33,16 @@ function GameContainer(props: IProps) {
 	}, [])
 
 	const handleMove = (position: number) => {
-		setGameData!({
-			...gameData,
+		const updatedGameData: IGameData = {
 			board: {
 				...gameData?.board,
-				[currentPiece]: undefined,
-				[position]: gameData?.board[currentPiece],
+				[currentPiece]: "",
+				[position]: gameData?.board[currentPiece] || "",
 			},
-		})
+			turn: side!,
+		}
+		setGameData!(updatedGameData)
+		socket.emit(EVENTS.CLIENT.MOVE, { room: roomID, gameData: updatedGameData })
 		setCurrentPiece(0)
 	}
 
@@ -56,7 +59,11 @@ function GameContainer(props: IProps) {
 					<div
 						key={key}
 						className={`piece ${gameData?.board[Number(key)]} square-${key}`}
-						onClick={() => setCurrentPiece(Number(key))}
+						onClick={() => {
+							if (gameData?.turn === side) return
+							if (!gameData?.board[Number(key)].startsWith(side!)) return
+							setCurrentPiece(Number(key))
+						}}
 					></div>
 				))}
 
@@ -70,6 +77,8 @@ function GameContainer(props: IProps) {
 					</div>
 				))}
 			</div>
+			<div>You are {side === "B" ? "BLACK" : "WHITE"}</div>
+			<div>Now is {gameData?.turn === "B" ? "WHITE" : "BLACK"}'s turn</div>
 		</div>
 	)
 }

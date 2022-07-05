@@ -14,6 +14,7 @@ interface Context {
 	rooms: Record<string, { name: string; participants: number }>
 	gameData?: IGameData
 	setGameData?: Function
+	side?: "W" | "B"
 }
 
 const SocketContext = createContext<Context>({ socket, rooms: {} })
@@ -21,23 +22,32 @@ const SocketContext = createContext<Context>({ socket, rooms: {} })
 const SocketProvider = ({ children }: PropsWithChildren) => {
 	const [roomID, setRoomID] = useState("")
 	const [rooms, setRooms] = useState({})
+	const [side, setSide] = useState<"W" | "B">("W")
 	const [gameData, setGameData] = useState<IGameData>(gameInitialState)
 
 	socket.on(EVENTS.SERVER.ROOMS, (value) => {
 		setRooms(value)
 	})
 
-	socket.on(EVENTS.SERVER.JOINED_ROOM, (value) => {
-		setRoomID(value)
+	socket.on(EVENTS.SERVER.JOINED_ROOM, ({ roomID, side }) => {
+		setRoomID(roomID)
+		setSide(side)
 		setGameData(gameInitialState)
 	})
 
 	socket.on(EVENTS.SERVER.PLAYER_JOIN_CLIENT_ROOM, ({ username }) => {
+		setGameData(gameInitialState)
 		console.log(`${username} joined`)
 	})
 
+	socket.on(EVENTS.SERVER.UPDATE_GAME_DATA, (gameData) => {
+		setGameData(gameData)
+	})
+
 	return (
-		<SocketContext.Provider value={{ socket, rooms, roomID, gameData, setGameData }}>
+		<SocketContext.Provider
+			value={{ socket, rooms, roomID, gameData, setGameData, side }}
+		>
 			{children}
 		</SocketContext.Provider>
 	)
